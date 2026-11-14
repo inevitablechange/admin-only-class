@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>프롬프트 모음 · 관리자 페이지 클래스</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="plain" data-title="프롬프트 모음">
+<div class="plain-wrap">
+  <h1>관리자 페이지 클래스 · 프롬프트 모음</h1>
+  <p class="lead sub">오늘 쓰는 프롬프트만 모아뒀어요. 버튼을 누르면 바로 복사돼요.</p>
+
+  <h2>준비</h2>
+
+  <div class="item">
+    <h3>0 지금 사이트 확인하기</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>이 프로젝트 구조와 배포된 곳을 쉽게 설명해줘.
+GitHub에 올라간 내용과 지금 폴더가 같은지도 확인해줘. 아직 아무것도 고치지 마.</pre>
+    </div>
+  </div>
+
+  <h2>실습 1 · 관리자 페이지</h2>
+
+  <div class="item">
+    <h3>1-1 관리자 레퍼런스 분석</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>폴더에 넣은 관리자 화면 캡처를 분석해줘. [캡처 2~3장]
+메뉴 구성, 첫 화면에 보이는 숫자, 표와 버튼 배치를 정리하고
+[사이트 이름]에 가져올 점을 적어서 관리자_레퍼런스.md로 저장해줘.</pre>
+    </div>
+    <p class="prompt-note">로그인한 화면은 이름·전화번호를 가리고 넣어요.</p>
+  </div>
+
+  <div class="item">
+    <h3>1-2 grill-me 기획</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>지금 홈페이지와 관리자_레퍼런스.md를 보고
+grill-me 방식으로 관리자 페이지 기획을 도와줘. 한 번에 하나씩 질문하고
+끝나면 관리자_기획안.md로 정리해줘.</pre>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3>1-3 관리자 시안 3개</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>관리자_기획안.md대로 관리자 페이지 시안 3개를 /admin/a /b /c에 만들어줘.
+홈페이지 분위기는 유지하고, 지금은 가짜 데이터로 채워줘.</pre>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3>1-4 골라서 완성</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>B안으로 확정할게. 나머지는 지우고 /admin 주소로 옮겨줘.
+휴대폰에서도 확인이 편하게 되도록 다듬어줘.</pre>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3>1-5 Supabase와 로그인 연결</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>Supabase를 연결해서 관리자 페이지의 가짜 데이터를 실제 데이터베이스로 바꿔줘.
+/admin은 로그인해야 들어올 수 있게 하고, 내 이메일만 관리자로 허용해줘.
+내가 Supabase에서 눌러야 할 것은 순서대로 알려줘.</pre>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3>넣을 키 목록 받기</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>지금 쓰는 배포 플랫폼(Netlify/Vercel/Cloudflare Pages 등)의
+환경변수에 넣어야 할 키를 표로 알려줘.
+이름, 어디서 복사하는지, 공개돼도 되는 키인지까지.</pre>
+    </div>
+  </div>
+
+  <h2>과제 · 보안</h2>
+
+  <div class="item">
+    <h3>규칙 한 번 적어 두기</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>CLAUDE.md에 보안 규칙을 적어줘. 비밀 키는 .env와 배포 플랫폼에만,
+관리자 기능은 로그인 확인 후에만, 작업이 끝나면 보안 점검하기.</pre>
+    </div>
+  </div>
+
+  <div class="item">
+    <h3>관리자 보안 점검</h3>
+    <div class="prompt">
+      <div class="prompt-head"><span>프롬프트</span><button class="copy">복사</button></div>
+      <pre>보안 점검해줘. 로그인 없이 /admin에 들어갈 수 있는지, Supabase 데이터베이스를
+아무나 읽거나 고칠 수 있는지, 비밀 키가 노출됐는지 확인하고 고쳐줘.</pre>
+    </div>
+  </div>
+
+</div>
+<div id="toast" role="status"></div>
+<script src="assets/app.js"></script>
+</body>
+</html>

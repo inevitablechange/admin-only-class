@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>관리자 페이지 클래스</title>
+<meta name="description" content="관리자 페이지 클래스 강의 자료. 결제 없이 관리자 페이지와 데이터베이스 연결까지만 다뤄요.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-title="관리자 페이지 클래스">
+<div id="progress"></div>
+<main id="deck">
+
+<!-- ===================== 시작 ===================== -->
+
+<div class="frame"><section class="slide" data-p="" data-section="시작" data-title="표지">
+  <p class="path">AI with Paul</p>
+  <h1 style="font-size:112px;margin-top:70px">관리자 페이지<br>클래스</h1>
+  <p class="lead">[사이트 이름] 사이트에 관리자 페이지를 붙여요</p>
+  <div class="cols c3" style="margin-top:96px">
+    <div class="card"><h3>출발점은 내 사이트</h3><p class="small sub">지난번에 만든 사이트에 이어서 만들어요.</p></div>
+    <div class="card"><h3>프롬프트는 복사로</h3><p class="small sub">글자 위 노란 버튼을 누르면 바로 복사돼요.</p></div>
+    <div class="card tint"><h3>오늘은 관리자 페이지까지</h3><p class="small sub">결제는 다루지 않아요. 관리자 페이지와 데이터베이스 연결까지만 해요.</p></div>
+  </div>
+  <p class="tiny faint" style="position:absolute;left:148px;bottom:92px">키보드 ← → 로 넘기고 G 를 누르면 목차가 열려요.</p>
+<div class="foot"><span>AI with Paul</span><span>1</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="" data-section="시작" data-title="오늘 목표">
+  <p class="path">오늘 목표</p>
+  <h1>사장님만 보는 화면을 만들고 데이터베이스와 연결해요</h1>
+  <ul class="list mt-l">
+    <li><b>관리자 페이지</b> 기획하고 만들기 — 레퍼런스 보고 grill-me로 구체화</li>
+    <li><b>데이터베이스</b>와 <b>로그인</b> 연결하기 — 가짜 데이터를 진짜 데이터로 바꾸기</li>
+    <li>완성한 내용을 <b>공개</b>하기 — 지금 쓰는 배포 플랫폼에 올리기</li>
+  </ul>
+  <p class="mt-l" style="font-size:36px"><mark>오늘은 결제를 다루지 않아요. 관리자 페이지 하나를 제대로 만드는 게 목표예요.</mark></p>
+<div class="foot"><span>AI with Paul</span><span>2</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="" data-section="시작" data-title="오늘 흐름 한눈에">
+  <p class="path">오늘 흐름</p>
+  <h1>관리자 페이지를 만들고 데이터베이스를 연결해요</h1>
+  <p class="lead">코드는 Claude가 쓰고, 우리는 고르고 결정해요.</p>
+  <div class="flow mt-l">
+    <div class="node p1 on"><b>개념</b>관리자 페이지 · 데이터베이스 · 로그인</div>
+    <div class="arrow">›</div>
+    <div class="node p2 on"><b>관리자 페이지</b>기획하고 만들기</div>
+    <div class="arrow">›</div>
+    <div class="node p2 on"><b>연결</b>데이터베이스 · 로그인</div>
+    <div class="arrow">›</div>
+    <div class="node p3 on"><b>공개</b>올리면 자동 반영</div>
+  </div>
+  <div class="card p3 edge-l mt-l">
+    <h3 class="ac">수업이 끝나면 과제로</h3>
+    <p class="small" style="margin:0">보안 점검 · 남은 메뉴 같은 방법으로 붙이기</p>
+  </div>
+<div class="foot"><span>AI with Paul</span><span>3</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="" data-section="시작" data-title="자료 채워 넣기 안내">
+  <p class="path">강사용 안내</p>
+  <h1>[ ] 표시는 사이트 정보를 받으면 채워요</h1>
+  <p class="lead">아직 사이트 이름 · 주소 · 캡처를 몰라서 자리만 비워뒀어요.</p>
+  <ul class="list mt-l">
+    <li><b>[사이트 이름]</b> · <b>[사이트 주소]</b> — 받는 대로 슬라이드에서 바꿔요</li>
+    <li><b>레퍼런스 이미지</b> — 수강생이 직접 가져온 관리자 화면 캡처를 1-1 프롬프트에 첨부해요</li>
+    <li><b>배포 플랫폼</b> — Netlify · Vercel · Cloudflare Pages 등 지금 쓰는 곳에 맞춰 설명해요</li>
+  </ul>
+<div class="foot"><span>AI with Paul</span><span>4</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="" data-section="시작" data-title="준비">
+  <p class="path">준비</p>
+  <h1>지난번 폴더를 그대로 열어요</h1>
+  <div class="cols mt" style="grid-template-columns: 1.35fr 1fr; gap: 56px; align-items: start">
+    <div>
+      <ol class="steps compact">
+        <li>Claude 앱 <b>Code 탭</b> → <b>Select folder</b>에서 지난번 사이트 폴더를 골라요.</li>
+        <li>아래 프롬프트로 지금 사이트 상태를 먼저 확인해요.</li>
+      </ol>
+      <div class="prompt sm"><div class="prompt-head"><span>0 지금 사이트 확인하기</span><button class="copy" type="button" aria-label="지금 사이트 확인하기 프롬프트 복사">복사</button></div><pre>이 프로젝트 구조와 배포된 곳을 쉽게 설명해줘.
+GitHub에 올라간 내용과 지금 폴더가 같은지도 확인해줘. 아직 아무것도 고치지 마.</pre></div>
+    </div>
+    <div>
+      <p class="strong" style="margin-bottom:12px">미리 가입해 두세요</p>
+      <ul class="checks compact" data-id="accounts">
+        <li><span class="box">✓</span><div><b>Supabase</b><span>supabase.com · 데이터베이스</span></div></li>
+        <li><span class="box">✓</span><div><b>배포 플랫폼</b><span>로그인 확인</span></div></li>
+      </ul>
+      <p class="small sub">모두 무료로 시작해요.</p>
+    </div>
+  </div>
+<div class="foot"><span>AI with Paul</span><span>5</span></div></section></div>
+
+<!-- ===================== 개념 ===================== -->
+
+<div class="frame"><section class="slide" data-p="1" data-section="개념" data-title="관리자 페이지란">
+  <p class="path">개념 · 관리자 페이지</p>
+  <h1>손님이 보는 화면과 사장님만 보는 화면을 나눠요</h1>
+  <div class="cols c3 mt">
+    <div class="card"><h3>홈페이지</h3><p class="small strong">손님이 보는 곳</p><p class="small sub">[사이트 주소]<br>구경하고 둘러봐요.</p></div>
+    <div class="card tint"><h3>관리자 페이지</h3><p class="small strong">사장님만 쓰는 곳</p><p class="small sub">[사이트 주소]/admin<br>내용을 관리해요.</p></div>
+    <div class="card"><h3>로그인</h3><p class="small strong">내 계정 확인</p><p class="small sub">로그인한 사람만<br>/admin에 들어갈 수 있어요.</p></div>
+  </div>
+  <p class="mt-l" style="font-size:36px"><mark>새 사이트를 만드는 게 아니에요. 지금 사이트에 /admin 화면 하나를 더 만들어요.</mark></p>
+<div class="foot"><span>AI with Paul</span><span>6</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="1" data-section="개념" data-title="데이터베이스란">
+  <p class="path">개념 · 데이터베이스</p>
+  <h1>관리자 페이지와 홈페이지를 데이터베이스가 이어 줘요</h1>
+  <div class="cols mt" style="grid-template-columns: 1fr 1fr; gap: 56px; align-items: start">
+    <div>
+      <p class="small">데이터베이스는 <b>정보를 저장해 두는 곳</b>이에요. 오늘은 무료로 쓸 수 있는 <b>Supabase</b>를 써요.</p>
+      <ul class="list small mt">
+        <li><b>관리자 페이지</b>는 데이터베이스에 적고 고쳐요</li>
+        <li><b>홈페이지</b>는 데이터베이스를 읽어서 보여 줘요</li>
+        <li>데이터베이스 한 곳만 고치면 양쪽이 같이 바뀌어요</li>
+      </ul>
+    </div>
+    <div class="mock" style="position:relative">
+      <span class="tag">예시</span>
+      <h4>데이터베이스 · 게시물</h4>
+      <table class="t" style="font-size:24px;margin-top:8px">
+        <thead><tr><th>제목</th><th>상태</th><th>작성일</th></tr></thead>
+        <tbody>
+          <tr><td>A 게시물</td><td>공개</td><td>11/10</td></tr>
+          <tr><td>B 게시물</td><td>공개</td><td>11/12</td></tr>
+          <tr><td>C 게시물</td><td>비공개</td><td>11/14</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<div class="foot"><span>AI with Paul</span><span>7</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="1" data-section="개념" data-title="데이터 연결 데모">
+  <p class="path">개념 · 눌러 보세요</p>
+  <h1>한쪽에서 적으면 다른 쪽에 바로 보여요</h1>
+  <div class="db-demo">
+    <div>
+      <p class="nd-label">관리자 페이지 <span class="dd-who">사장님</span></p>
+      <div class="browser">
+        <div class="browser-bar"><i></i><i></i><i></i><span>[사이트 주소]/admin</span></div>
+        <div class="dd-body">
+          <p class="dd-h">새 일정 열기</p>
+          <div class="dd-new"><b class="dd-new-c"></b><span class="dd-new-d"></span></div>
+          <button class="dd-btn dd-add" type="button">일정 추가</button>
+          <p class="dd-h" style="margin-top:20px">들어온 예약</p>
+          <ul class="dd-list dd-bookings"></ul>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="nd-label">데이터베이스 <span class="dd-who">Supabase</span></p>
+      <div class="dd-sheet">
+        <p class="dd-cap">일정</p>
+        <table><thead><tr><th>날짜</th><th>항목</th><th>자리</th></tr></thead><tbody class="dd-rows"></tbody></table>
+        <p class="dd-cap">예약</p>
+        <table><thead><tr><th>손님</th><th>날짜</th><th>상태</th></tr></thead><tbody class="dd-brows"></tbody></table>
+      </div>
+    </div>
+    <div>
+      <p class="nd-label">홈페이지 <span class="dd-who">손님</span></p>
+      <div class="browser">
+        <div class="browser-bar"><i></i><i></i><i></i><span>[사이트 주소]</span></div>
+        <div class="dd-body">
+          <p class="dd-h">예약 가능한 일정</p>
+          <ul class="dd-list dd-slots"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dd-foot"><p class="dd-status" aria-live="polite"></p><button class="dd-reset" type="button">처음으로</button></div>
+<div class="foot"><span>AI with Paul</span><span>8</span></div></section></div>
+
+<!-- ===================== 실습 1 관리자 페이지 ===================== -->
+
+<div class="frame"><section class="slide" data-p="2" data-section="실습 1 관리자 페이지" data-title="무엇을 관리할까">
+  <p class="path">실습 1 · 관리자 페이지</p>
+  <h1>무엇을 관리할지부터 정해요</h1>
+  <p class="lead">디자인보다 메뉴가 먼저예요. 사이트마다 관리할 게 달라요.</p>
+  <div class="cols mt" style="grid-template-columns: repeat(4, 1fr); gap: 22px">
+    <div class="card"><h3 style="font-size:32px">일정 · 예약</h3><p class="tiny sub">날짜별 내용, 남은 자리 확인</p></div>
+    <div class="card"><h3 style="font-size:32px">콘텐츠</h3><p class="tiny sub">게시물 · 상품 정보 고치기</p></div>
+    <div class="card"><h3 style="font-size:32px">문의</h3><p class="tiny sub">들어온 문의 모아 보기</p></div>
+    <div class="card"><h3 style="font-size:32px">회원</h3><p class="tiny sub">가입한 사람 목록</p></div>
+  </div>
+  <p class="mt-l" style="font-size:36px"><mark>오늘은 레퍼런스와 grill-me로 핵심 메뉴 2~3개만 정해서 만들어요.</mark></p>
+<div class="foot"><span>AI with Paul</span><span>9</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="2" data-section="실습 1 관리자 페이지" data-title="1-1 관리자 레퍼런스">
+  <p class="path">실습 1 · 1-1 레퍼런스 · 프롬프트</p>
+  <h1>평소 쓰던 관리자 화면이 좋은 레퍼런스예요</h1>
+  <div class="prompt mt"><div class="prompt-head"><span>1-1 관리자 레퍼런스 분석</span><button class="copy" type="button" aria-label="1-1 관리자 레퍼런스 분석 프롬프트 복사">복사</button></div><pre>폴더에 넣은 관리자 화면 캡처를 분석해줘. [캡처 2~3장]
+메뉴 구성, 첫 화면에 보이는 숫자, 표와 버튼 배치를 정리하고
+[사이트 이름]에 가져올 점을 적어서 관리자_레퍼런스.md로 저장해줘.</pre></div>
+  <p class="prompt-note">네이버 스마트플레이스, 스마트스토어, 와디즈 메이커 화면처럼 이미 쓰고 있는 곳을 캡처해요. 로그인한 화면은 이름·전화번호를 가리고 넣어요.</p>
+<div class="foot"><span>AI with Paul</span><span>10</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="2" data-section="실습 1 관리자 페이지" data-title="1-2 grill-me 기획">
+  <p class="path">실습 1 · 1-2 기획 · 프롬프트</p>
+  <h1>Claude의 질문에 답하며 메뉴를 정해요</h1>
+  <div class="cols mt" style="grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start">
+    <div>
+      <div class="prompt"><div class="prompt-head"><span>1-2 grill-me 기획</span><button class="copy" type="button" aria-label="1-2 grill-me 기획 프롬프트 복사">복사</button></div><pre>지금 홈페이지와 관리자_레퍼런스.md를 보고
+grill-me 방식으로 관리자 페이지 기획을 도와줘. 한 번에 하나씩 질문하고
+끝나면 관리자_기획안.md로 정리해줘.</pre></div>
+      <p class="prompt-note">모르면 "추천해줘", 그만하려면 "이제 정리해줘"라고 해요.</p>
+    </div>
+    <div class="mock" style="position:relative">
+      <span class="tag">예시</span>
+      <h4>관리자 기획안 · [사이트 이름]</h4>
+      <h5>첫 화면</h5><p style="margin:0">가장 먼저 확인하고 싶은 숫자</p>
+      <h5>메뉴</h5><p style="margin:0">핵심 2~3개</p>
+      <h5>매일 하는 일</h5><p style="margin:0">새 내용 확인, 처리할 것 확인</p>
+      <h5>쓰는 사람</h5><p style="margin:0">대표 1명 (휴대폰으로도)</p>
+    </div>
+  </div>
+<div class="foot"><span>AI with Paul</span><span>11</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="2" data-section="실습 1 관리자 페이지" data-title="1-3·1-4 시안 받고 완성">
+  <p class="path">실습 1 · 1-3·1-4 시안 · 프롬프트</p>
+  <h1>시안 3개를 보고 하나로 완성해요</h1>
+  <div class="stack mt">
+    <div class="prompt sm"><div class="prompt-head"><span>1-3 관리자 시안 3개</span><button class="copy" type="button" aria-label="1-3 관리자 시안 3개 프롬프트 복사">복사</button></div><pre>관리자_기획안.md대로 관리자 페이지 시안 3개를 /admin/a /b /c에 만들어줘.
+홈페이지 분위기는 유지하고, 지금은 가짜 데이터로 채워줘.</pre></div>
+    <div class="prompt sm"><div class="prompt-head"><span>1-4 골라서 완성</span><button class="copy" type="button" aria-label="1-4 골라서 완성 프롬프트 복사">복사</button></div><pre>B안으로 확정할게. 나머지는 지우고 /admin 주소로 옮겨줘.
+휴대폰에서도 확인이 편하게 되도록 다듬어줘.</pre></div>
+  </div>
+  <p class="prompt-note">"B안 구조에 A안의 표를 가져와줘"처럼 구체적으로 말해요.</p>
+<div class="foot"><span>AI with Paul</span><span>12</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="2" data-section="실습 1 관리자 페이지" data-title="1-5 데이터베이스와 로그인 연결">
+  <p class="path">실습 1 · 1-5 데이터베이스 · 로그인 · 프롬프트</p>
+  <h1>가짜 데이터를 진짜 데이터베이스로 바꿔요</h1>
+  <div class="prompt mt"><div class="prompt-head"><span>1-5 Supabase와 로그인 연결</span><button class="copy" type="button" aria-label="1-5 Supabase와 로그인 연결 프롬프트 복사">복사</button></div><pre>Supabase를 연결해서 관리자 페이지의 가짜 데이터를 실제 데이터베이스로 바꿔줘.
+/admin은 로그인해야 들어올 수 있게 하고, 내 이메일만 관리자로 허용해줘.
+내가 Supabase에서 눌러야 할 것은 순서대로 알려줘.</pre></div>
+  <div class="cols c2 mt">
+    <div class="card"><h3>Claude가 하는 일</h3><p class="small sub" style="margin:0">데이터베이스 표 만들기, 화면과 데이터베이스 잇기, 로그인 화면 만들기</p></div>
+    <div class="card"><h3>내가 하는 일</h3><p class="small sub" style="margin:0">Supabase에서 프로젝트 만들기, 키 복사해서 붙여 넣기</p></div>
+  </div>
+<div class="foot"><span>AI with Paul</span><span>13</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="2" data-section="실습 1 관리자 페이지" data-title="배포 플랫폼 환경변수">
+  <p class="path">실습 1 · 비밀 키 보관</p>
+  <h1>비밀 키는 배포 플랫폼의 환경변수에 넣어요</h1>
+  <div class="cols mt" style="grid-template-columns: 1fr 1fr; gap: 48px; align-items: start">
+    <div>
+      <p class="small">키는 내 컴퓨터의 <code>.env</code> 파일에 있어서 GitHub에 올라가지 않아요. 그래서 배포 플랫폼(Netlify · Vercel · Cloudflare Pages 등)에도 <b>따로 한 번 넣어 줘야</b> 해요.</p>
+      <ol class="steps compact mt">
+        <li>배포 플랫폼 → 내 사이트 → <b>환경변수 설정 메뉴</b></li>
+        <li>Claude가 알려 준 이름과 값을 붙여 넣어요</li>
+        <li>다시 배포해요(Trigger deploy / Redeploy)</li>
+      </ol>
+    </div>
+    <div>
+      <div class="prompt sm"><div class="prompt-head"><span>넣을 키 목록 받기</span><button class="copy" type="button" aria-label="넣을 키 목록 받기 프롬프트 복사">복사</button></div><pre>지금 쓰는 배포 플랫폼(Netlify/Vercel/Cloudflare Pages 등)의
+환경변수에 넣어야 할 키를 표로 알려줘.
+이름, 어디서 복사하는지, 공개돼도 되는 키인지까지.</pre></div>
+      <p class="prompt-note">메뉴 이름이 다르면 화면을 캡처해서 "어디를 눌러야 해?"라고 물어봐요.</p>
+    </div>
+  </div>
+<div class="foot"><span>AI with Paul</span><span>14</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="2" data-section="실습 1 관리자 페이지" data-title="체크포인트 관리자 페이지">
+  <p class="path">실습 1 · 체크포인트</p>
+  <h1>관리자 페이지가 이렇게 되면 성공이에요</h1>
+  <ul class="checks compact mt" data-id="cp-admin">
+    <li><span class="box">✓</span><div><b>잠금</b><span>로그인 없이 /admin에 들어가면 막혀요.</span></div></li>
+    <li><span class="box">✓</span><div><b>내 계정</b><span>내 이메일로 로그인하면 들어가져요.</span></div></li>
+    <li><span class="box">✓</span><div><b>내용 반영</b><span>관리자에서 고친 내용이 홈페이지에도 보여요.</span></div></li>
+    <li><span class="box">✓</span><div><b>휴대폰</b><span>휴대폰에서도 잘 보여요.</span></div></li>
+  </ul>
+<div class="foot"><span>AI with Paul</span><span>15</span></div></section></div>
+
+<!-- ===================== 과제 ===================== -->
+
+<div class="frame"><section class="slide" data-p="3" data-section="과제로 이어가기" data-title="관리자 보안 점검">
+  <p class="path">과제 · 보안</p>
+  <h1>관리자 페이지는 보안이 더 중요해요</h1>
+  <div class="cols mt" style="grid-template-columns: 1fr 1.25fr; gap: 44px; align-items: start">
+    <div>
+      <p class="strong" style="margin-bottom:12px">이 세 가지만 지켜요</p>
+      <ul class="list small">
+        <li><b>/admin</b>은 내 계정만 들어와요</li>
+        <li><b>데이터베이스</b>는 아무나 읽거나 고칠 수 없어요</li>
+        <li><b>비밀 키</b>는 코드와 GitHub에 없어요</li>
+      </ul>
+    </div>
+    <div class="stack">
+      <div class="prompt sm"><div class="prompt-head"><span>규칙 한 번 적어 두기</span><button class="copy" type="button" aria-label="보안 규칙 적어 두기 프롬프트 복사">복사</button></div><pre>CLAUDE.md에 보안 규칙을 적어줘. 비밀 키는 .env와 배포 플랫폼에만,
+관리자 기능은 로그인 확인 후에만, 작업이 끝나면 보안 점검하기.</pre></div>
+      <div class="prompt sm"><div class="prompt-head"><span>관리자 보안 점검</span><button class="copy" type="button" aria-label="관리자 보안 점검 프롬프트 복사">복사</button></div><pre>보안 점검해줘. 로그인 없이 /admin에 들어갈 수 있는지, Supabase 데이터베이스를
+아무나 읽거나 고칠 수 있는지, 비밀 키가 노출됐는지 확인하고 고쳐줘.</pre></div>
+    </div>
+  </div>
+<div class="foot"><span>AI with Paul</span><span>16</span></div></section></div>
+
+<div class="frame"><section class="slide" data-p="3" data-section="과제로 이어가기" data-title="남은 메뉴 붙이기">
+  <p class="path">과제 · 더 붙이기</p>
+  <h1>나머지 메뉴도 같은 방법으로 붙여요</h1>
+  <p class="lead">오늘 만든 2~3개 메뉴와 똑같은 과정을 반복하면 돼요.</p>
+  <ol class="steps compact mt">
+    <li>레퍼런스 보고 메뉴 정하기</li>
+    <li>grill-me로 구체화하기</li>
+    <li>시안 받고 완성하기</li>
+    <li>데이터베이스에 연결하기</li>
+  </ol>
+<div class="foot"><span>AI with Paul</span><span>17</span></div></section></div>
+
+<!-- ===================== 마무리 ===================== -->
+
+<div class="frame"><section class="slide" data-p="" data-section="마무리" data-title="질문과 마무리">
+  <p class="path">Q&amp;A</p>
+  <h1 style="font-size:120px;margin-top:40px">질문 받을게요</h1>
+  <p class="lead">이번 주에는 관리자 페이지로 실제 내용을 넣어 보세요.</p>
+  <div class="cols c2 mt-l">
+    <div class="card"><h3>프롬프트 다시 가져가기</h3><p class="small">아래 버튼을 누르거나, 이 주소에서 S 키를 누르면 스크롤로 훑으며 복사할 수 있어요.</p></div>
+    <div class="card"><h3>사이트 고치기</h3><p class="small">폴더를 Code 탭에서 열고 말로 고친 뒤 "GitHub에 올려줘"라고 하면 반영돼요.</p></div>
+  </div>
+  <div class="mt-l"><a class="dl" href="prompts.html" target="_blank" rel="noopener">오늘 프롬프트 모음<small>새 창</small></a></div>
+  <p class="mt sub">오늘 수고 많으셨어요. 감사합니다.</p>
+<div class="foot"><span>AI with Paul</span><span>18</span></div></section></div>
+
+</main>
+<button class="edge l" id="edge-l" aria-label="이전 슬라이드"></button>
+<button class="edge r" id="edge-r" aria-label="다음 슬라이드"></button>
+<nav id="hud" aria-label="슬라이드 이동">
+  <button id="btn-prev" aria-label="이전">이전</button>
+  <span class="pos" id="pos" aria-live="polite"></span>
+  <button id="btn-next" aria-label="다음">다음</button>
+  <button id="btn-toc" aria-label="목차 열기">목차</button>
+  <button id="btn-mode" aria-label="보기 방식 바꾸기">스크롤</button>
+</nav>
+<div id="toc" role="dialog" aria-label="목차"><div class="panel"><strong style="font-size:20px">목차</strong></div></div>
+<div id="toast" role="status"></div>
+<script src="assets/app.js"></script>
+</body>
+</html>
